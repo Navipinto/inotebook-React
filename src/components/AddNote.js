@@ -4,7 +4,7 @@ import Navbar from "./Navbar";
 import { Link, useNavigate } from "react-router-dom";
 import toast from 'react-hot-toast';
 
-function AddNote(props) {
+function AddNote() {
   let context = useContext(NoteContext);
   const navigate=useNavigate()
   const { addNote } = context;

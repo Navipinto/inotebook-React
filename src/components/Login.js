@@ -1,17 +1,16 @@
 import React,{useContext, useState} from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import NoteContext from "../Context/Notes/NotesContext";
 import toast from 'react-hot-toast';
-import note1img from '../assets/note1img.jpg'
 
 function Login(props) {
     let context = useContext(NoteContext);
-    const { setisAuthenticated } = context;
+    const { setisAuthenticated, isAuthenticated ,settoken} = context;
     const [credentials, setcredentials] = useState({email:"",password:""})
     const navigate=useNavigate()
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        e.preventDefault()
         const response = await fetch(`https://inotebook-react-k0tf.onrender.com/api/auth/login`, {
             method: "POST",
             headers: {
@@ -21,12 +20,12 @@ function Login(props) {
         });
         const json = await response.json();
         console.log(json)
-        if(json.status==true)
+        if(json.status===true)
         {
-            localStorage.setItem("token",json.authtoken)
-            toast.success("Login successful")
-            setisAuthenticated(true)
+            settoken(json.authtoken)
             navigate("/home")
+            setisAuthenticated(true)
+            toast.success("Login successful")
         }
         else
         {
@@ -41,7 +40,8 @@ function Login(props) {
     };
     return (
         <div className=" h-screen w-full flex items-center justify-center text-white">
-            <img src={note1img} alt="" className="w-full h-screen absolute"/>
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/038/023/313/small_2x/ai-generated-blank-colorful-sticky-notes-note-paper-color-copy-space-sticky-note-notes-memo-rainbow-reminder-photo.jpg" alt="" className="w-full h-screen absolute hidden md:block"/>
+            <img src="https://e1.pxfuel.com/desktop-wallpaper/127/737/desktop-wallpaper-encouragement-positive-sticky-notes-positive-note.jpg" alt="" className="w-full h-screen absolute md:hidden" />
             <div className="modal-box w-96 bg-black bg-opacity-50 z-10">
                 <form method="dialog gap-3" onSubmit={handleSubmit}>
                     {/* if there is a button in form, it will close the modal */}

@@ -8,6 +8,9 @@ import Signup from './components/Signup';
 import { Toaster } from 'react-hot-toast';
 import Welcome from './components/Welcome';
 import AddNote from './components/AddNote';
+import Authenticated from './components/Authenticated';
+
+
 
 function App() {
 
@@ -17,11 +20,11 @@ function App() {
         <Router>
             <Routes>
             <Route exact path="/" element={<Welcome />}></Route>
-              <Route exact path="/home" element={<Home />}></Route>
-            <Route exact path="/addnote" element={<AddNote  />}></Route>
-              <Route exact path="/about" element={<About />}></Route>
-              <Route exact path="/login" element={<Login  />}></Route>
-              <Route exact path="/signup" element={<Signup />}></Route>
+            <Route exact path="/login" element={<Login />}></Route>
+            <Route exact path="/signup" element={<Signup />}></Route>
+            <Route exact path="/home" element={<Authenticated><Home/></Authenticated>}></Route>
+            <Route exact path="/addnote" element={<Authenticated><AddNote /></Authenticated>}></Route>
+            <Route exact path="/about" element={<Authenticated><About /></Authenticated>}></Route>
             </Routes>
         </Router>
         <Toaster/>

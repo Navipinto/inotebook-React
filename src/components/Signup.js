@@ -2,12 +2,10 @@ import React, { useContext, useState } from "react";
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from "react-router-dom";
 import NoteContext from "../Context/Notes/NotesContext";
-import Alert from "./Alert";
-import note2img from '../assets/note2img.jpg'
 
 function Signup(props) {
   let context = useContext(NoteContext);
-  const { setisAuthenticated,setshowAlert,showalert,alert,setAlert } = context;
+  const {settoken } = context;
   const [signupcredentials, setsignupcredentials] = useState({sname:"", semail: "", spassword: "",cpassword:"" })
 
   const navigate=useNavigate()
@@ -18,7 +16,7 @@ function Signup(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch(`http://localhost:5000/api/auth/create-user`, {
+    const response = await fetch(`https://inotebook-react-k0tf.onrender.com/api/auth/create-user`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -29,7 +27,7 @@ function Signup(props) {
     console.log(json)
     if (json.status) {
       toast.success("Login Successful!")
-      localStorage.setItem("token",json.token)
+      settoken(json.token)
       navigate("/home")
     }
     else {
@@ -40,8 +38,8 @@ function Signup(props) {
 
   return (
     <div className='flex place-items-center justify-center h-screen w-full'>
-      {showalert&&<Alert/>}
-      <img src={note2img} alt="" className="w-full h-screen absolute" />
+      <img src="https://images.pexels.com/photos/3831849/pexels-photo-3831849.jpeg" alt="" className="w-full h-screen absolute md:hidden" />
+      <img src="https://images.pexels.com/photos/1629212/pexels-photo-1629212.jpeg?cs=srgb&dl=pexels-minan1398-1629212.jpg&fm=jpg" alt="" className="w-full h-screen absolute hidden md:block" />
       <div className="modal-box bg-black bg-opacity-50 text-white w-fit">
         <form method="dialog" onSubmit={handleSubmit}>
           {/* if there is a button in form, it will close the modal */}

@@ -6,7 +6,7 @@ import NoteContext from '../Context/Notes/NotesContext';
 
 function Navbar() {
   let context = useContext(NoteContext);
-  const { isAuthenticated } = context;
+  const { isAuthenticated,setisAuthenticated ,settoggleon,toggleon} = context;
   const navigate=useNavigate()
   let location = useLocation();
   useEffect(() => {
@@ -15,15 +15,16 @@ function Navbar() {
 
   const handleLogout=()=>{
       localStorage.clear();
+      setisAuthenticated(false)
       navigate("/login")
   }
   
   return (
       <div className="navbar navbar-expand-lg bg-dark navbar-dark absolute">
         <div className="container-fluid">
-          <Link className="navbar-brand" to="/home">
+          <div className="navbar-brand">
             <img style={{ height: "45px" }} src={iNoteBook} alt="" />
-          </Link>
+          </div>
           <button
             className="navbar-toggler"
             type="button"
@@ -32,6 +33,7 @@ function Navbar() {
             aria-controls="navbarSupportedContent"
             aria-expanded="false"
             aria-label="Toggle navigation"
+            onClick={()=>{settoggleon(!toggleon)}}
           >
             <span className="navbar-toggler-icon"></span>
           </button>
@@ -60,7 +62,7 @@ function Navbar() {
               </li>}
             </ul>
             {isAuthenticated&&
-            <div><button onClick={handleLogout} className='btn btn-primary rounded-md mx-3'>Logout</button></div>
+            <div><button onClick={handleLogout} className='btn btn-primary rounded-md md:mx-3 '>Logout</button></div>
             } 
           </div>
         </div>

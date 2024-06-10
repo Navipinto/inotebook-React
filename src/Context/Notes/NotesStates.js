@@ -35,23 +35,20 @@ const NoteStates=(props)=>{
   const initialNotes = [];
   const [notes, setnotes] = useState(initialNotes);
   const [isAuthenticated, setisAuthenticated] = useState(false)
-  const [showalert, setshowAlert] = useState(false)
-  if(showalert)
-    {
-  setTimeout(() => {
-    setshowAlert(false)
-  }, 1500);
-}
+  const [token, settoken] = useState("")
+  const [toggleon, settoggleon] = useState(false)
+
 
   //get all notes
 
   const getAllNotes = async () => {
     //api call
+    console.log(token)
     const response = await fetch(`${host}/api/notes/fetchallnotes`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "auth-token":localStorage.getItem('token')
+        "auth-token":token
           
       },
     });
@@ -67,7 +64,7 @@ const NoteStates=(props)=>{
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "auth-token": localStorage.getItem('token')
+        "auth-token": token
       },
       body: JSON.stringify({ title, description, tag }),
     });
@@ -83,7 +80,7 @@ const NoteStates=(props)=>{
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        "auth-token": localStorage.getItem('token')
+        "auth-token": token
       },
     });
     const json=await response.text()
@@ -102,7 +99,7 @@ const NoteStates=(props)=>{
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        "auth-token": localStorage.getItem('token')
+        "auth-token": token
       },
       body: JSON.stringify({ id,title, description, tag }),
     });
@@ -124,7 +121,7 @@ const NoteStates=(props)=>{
 
   
   return (
-    <NoteContext.Provider value={{ notes, setnotes, addNote, deleteNote ,getAllNotes, editNote,isAuthenticated,setisAuthenticated,showalert,setshowAlert,setAlert,alert}}>
+    <NoteContext.Provider value={{ notes, setnotes, addNote, deleteNote ,getAllNotes, editNote,isAuthenticated,setisAuthenticated,setAlert,alert,token,settoken,toggleon,settoggleon}}>
       {props.children}
     </NoteContext.Provider>
   );

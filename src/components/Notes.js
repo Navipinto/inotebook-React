@@ -7,9 +7,10 @@ function Notes(props) {
   const naviagte=useNavigate();
   const {showAlert}=props;
   let context = useContext(NoteContext);
-  const { notes, getAllNotes ,editNote} = context;
+  const { notes, getAllNotes ,editNote,token} = context;
   useEffect(() => {
-    if(localStorage.getItem('token'))
+    console.log(token)
+    if(token)
     {
     getAllNotes();
     }
