@@ -16,6 +16,7 @@ function Navbar() {
   const handleLogout=()=>{
       localStorage.clear();
       setisAuthenticated(false)
+      settoggleon(false)
       navigate("/login")
   }
   
