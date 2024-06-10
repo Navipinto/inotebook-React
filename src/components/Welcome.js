@@ -5,11 +5,8 @@ import { Link } from 'react-router-dom'
 
 function Welcome() {
   return (
-    <div className='-mt-16 h-screen w-full bg-blue-50'>
-        <div className='w-full absolute'>
-
-        <Navbar/>
-        </div>
+    <div className=' h-screen w-full bg-blue-50'>
+      <Navbar/>
         <div className='flex md:flex-row flex-col-reverse justify-center place-items-center px-4 py-2 sm:px-20 h-screen'>
             <div>
 

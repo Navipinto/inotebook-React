@@ -1,8 +1,9 @@
 import { useState } from "react"
 import NoteContext from "./NotesContext"
+import toast from 'react-hot-toast';
 
 const NoteStates=(props)=>{
-  const host = "http://localhost:5000";
+  const host = "https://inotebook-react-k0tf.onrender.com";
   // const s1={
   //     name:"Naveen Shaun pinto",
   //     age:"21"
@@ -17,8 +18,30 @@ const NoteStates=(props)=>{
   //         })
   //     },2000)
 
+  const [alert, setAlert] = useState(null);
+  // const [alert, setAlert] = useState(null);
+  // const showAlert = (message, type) => {
+  //   setAlert({
+  //     message: message,
+  //     type: type
+  //   })
+  //   setshowAlert(true)
+
+  //   setTimeout(() => {
+  //     setAlert(null);
+  //     setshowAlert(false)
+  //   }, 1500);
+
   const initialNotes = [];
   const [notes, setnotes] = useState(initialNotes);
+  const [isAuthenticated, setisAuthenticated] = useState(false)
+  const [showalert, setshowAlert] = useState(false)
+  if(showalert)
+    {
+  setTimeout(() => {
+    setshowAlert(false)
+  }, 1500);
+}
 
   //get all notes
 
@@ -96,11 +119,12 @@ const NoteStates=(props)=>{
       }
     }
     setnotes(newNotes)
+    toast.success("Note updated successfully")
   };
 
   
   return (
-    <NoteContext.Provider value={{ notes, setnotes, addNote, deleteNote ,getAllNotes, editNote}}>
+    <NoteContext.Provider value={{ notes, setnotes, addNote, deleteNote ,getAllNotes, editNote,isAuthenticated,setisAuthenticated,showalert,setshowAlert,setAlert,alert}}>
       {props.children}
     </NoteContext.Provider>
   );

@@ -32,7 +32,7 @@ router.post(
     let user= await User.findOne({email:req.body.email})
     if(user)
     {
-      res.status(400).json(error="this email already exist");
+      res.status(400).json({status:"failed"});
     }
     else{
       user = await User.create({
@@ -83,7 +83,7 @@ router.post(
       let user= await User.findOne({email})
       if(!user)
       {
-        res.status(400).json({error:"Please login with in valid credentials"})
+        res.status(400).json({status:false,error:"Please login with in valid credentials"})
       }
       else{
 
@@ -93,7 +93,7 @@ router.post(
       {
         res
           .status(400)
-          .json({status:status, error: "Please login with in valid credentials" });
+          .json({status:false, error: "Please login with in valid credentials" });
       }
       else{
        const data = {

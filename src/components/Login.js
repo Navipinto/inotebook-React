@@ -1,14 +1,18 @@
-import React,{useState} from "react";
+import React,{useContext, useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Navbar from "./Navbar";
+import NoteContext from "../Context/Notes/NotesContext";
+import toast from 'react-hot-toast';
+import note1img from '../assets/note1img.jpg'
 
 function Login(props) {
+    let context = useContext(NoteContext);
+    const { setisAuthenticated } = context;
     const [credentials, setcredentials] = useState({email:"",password:""})
     const navigate=useNavigate()
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch(`http://localhost:5000/api/auth/login`, {
+        const response = await fetch(`https://inotebook-react-k0tf.onrender.com/api/auth/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -16,16 +20,18 @@ function Login(props) {
             body:JSON.stringify({email:credentials.email,password:credentials.password})
         });
         const json = await response.json();
-        if(json.status)
+        console.log(json)
+        if(json.status==true)
         {
             localStorage.setItem("token",json.authtoken)
+            toast.success("Login successful")
+            setisAuthenticated(true)
             navigate("/home")
-            props.showAlert("You have logged in Succesfully","success")
         }
         else
         {
             console.log("enter the valid details")
-            props.showAlert("Login failed! try again.", "danger")
+            toast.error("Please enter valid credentials!")
         }
         setcredentials({email:"",password:""})
     }
@@ -34,12 +40,11 @@ function Login(props) {
         setcredentials({ ...credentials, [e.target.name]: e.target.value });
     };
     return (
-        <div className="-mt-16 h-screen w-full flex items-center justify-center text-white">
-            <img src="https://wallpapercave.com/wp/wp9878778.jpg" alt="" className="w-full h-screen absolute "/>
+        <div className=" h-screen w-full flex items-center justify-center text-white">
+            <img src={note1img} alt="" className="w-full h-screen absolute"/>
             <div className="modal-box w-96 bg-black bg-opacity-50 z-10">
                 <form method="dialog gap-3" onSubmit={handleSubmit}>
                     {/* if there is a button in form, it will close the modal */}
-                    <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" id="closeclicklogin">✕</button>
                     <h2 className='text-xl font-semibold mx-2'>Login</h2>
                     <label className="form-control w-full max-w-xs bg-transparent border-none text-white">
                         <div className="label">

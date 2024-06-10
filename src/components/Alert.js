@@ -6,7 +6,7 @@ export default function Alert(props) {
     return lower.charAt(0).toUpperCase() + lower.slice(1);
   };
   return (
-    <div className='mb-4.2' style={{ height: '60px' }}>
+    <div className='absolute' style={{ height: '60px' }}>
       {props.alert &&
         <div
           className={`alert alert-${props.alert.type} alert-dismissible fade show`}

@@ -2,6 +2,7 @@ import React, { useContext ,useState} from "react";
 import NoteContext from "../Context/Notes/NotesContext";
 import Navbar from "./Navbar";
 import { Link, useNavigate } from "react-router-dom";
+import toast from 'react-hot-toast';
 
 function AddNote(props) {
   let context = useContext(NoteContext);
@@ -13,7 +14,7 @@ function AddNote(props) {
     e.preventDefault();
     addNote(note)
     setnote({ title: "", description: "", tag: "" });
-    props.showAlert("Note added sUccesfully","success")
+    toast.success("Note added successfully")
     navigate("/home")
   }
 
@@ -21,8 +22,8 @@ function AddNote(props) {
         setnote({...note,[e.target.name]:e.target.value})
   }
   return (
-    <div className="-mt-16 h-screen flex justify-center place-items-center bg-gradient-to-r from-blue-950 to-cyan-900">
-      <div className="absolute top-0 left-0 right-0">
+    <div className=" h-screen flex flex-col justify-center items-center w-full bg-gradient-to-r from-blue-950 to-cyan-900 absolute">
+      <div className="absolute top-0 left-0 right-0 w-full">
 
       <Navbar/>
       </div>
@@ -56,7 +57,7 @@ function AddNote(props) {
             <div className="label">
               <span className="label-text font-semibold text-white">Tag</span>
             </div>
-            <input type="password" placeholder="Enter the password" className="input input-bordered w-full max-w-xs" name="tag"
+            <input type="text" placeholder="Enter the password" className="input input-bordered w-full max-w-xs" name="tag"
               onChange={onchangehandler}
               value={note.tag} />
           </label>

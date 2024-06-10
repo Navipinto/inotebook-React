@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import NoteContext from "../Context/Notes/NotesContext";
+import toast from 'react-hot-toast';
 
 function NoteItem(props) {
   let context = useContext(NoteContext);
@@ -17,7 +18,7 @@ function NoteItem(props) {
               className="fa-solid fa-trash mx-3"
               onClick={() => {
                 deleteNote(note._id);
-                props.showAlert("Note deleted Successfully","success")
+                toast.success("Note delteted successfully")
               }}
             ></i>
             <i className="fa-solid fa-file-pen" onClick={() => { document.getElementById('my_modal_3').showModal() ;updateNote(note)}}></i>
