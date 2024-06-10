@@ -40,7 +40,7 @@ function Navbar() {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              {isAuthenticated&&<li className="nav-item">
+              {isAuthenticated&&<li className="nav-item" onClick={()=>settoggleon(false)}>
                 <Link
                   className={`nav-link ${
                     location.pathname === "/" ? "active" : ""
@@ -51,7 +51,7 @@ function Navbar() {
                   Home
                 </Link>
               </li>}
-              {isAuthenticated &&<li className="nav-item">
+            {isAuthenticated && <li className="nav-item" onClick={() => settoggleon(false) }>
                 <Link
                   className={`nav-link ${
                     location.pathname === "/about" ? "active" : ""

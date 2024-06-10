@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Notes from '../components/Notes'
 import Navbar from "./Navbar";
 import { Link } from "react-router-dom";
@@ -6,7 +6,12 @@ import NoteContext from "../Context/Notes/NotesContext";
 
 function Home() {
   let context = useContext(NoteContext);
-  const { toggleon } = context;
+  const { toggleon ,settoggleon} = context;
+
+  useEffect(() => {
+    settoggleon(false)
+  }, [])
+  
 
   return (
     <div className=" h-screen bg-gray-200  w-full">
