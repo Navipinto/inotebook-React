@@ -17,6 +17,7 @@ function Signup(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setdisable(true)
     const response = await fetch(`https://inotebook-react-k0tf.onrender.com/api/auth/create-user`, {
       method: "POST",
       headers: {
@@ -30,10 +31,11 @@ function Signup(props) {
       toast.success("Login Successful!")
       settoken(json.token)
       navigate("/home")
+      setdisable(false)
     }
     else {
-      console.log("enter the valid details")
       toast.error("Enter valid credentials!")
+      setdisable(false)
     }
   }
 
