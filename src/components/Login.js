@@ -6,11 +6,13 @@ import toast from 'react-hot-toast';
 function Login(props) {
     let context = useContext(NoteContext);
     const { setisAuthenticated, isAuthenticated ,settoken} = context;
+    const [disable, setdisable] = useState(false)
     const [credentials, setcredentials] = useState({email:"",password:""})
     const navigate=useNavigate()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        setdisable(true)
         const response = await fetch(`https://inotebook-react-k0tf.onrender.com/api/auth/login`, {
             method: "POST",
             headers: {
@@ -26,11 +28,13 @@ function Login(props) {
             navigate("/home")
             setisAuthenticated(true)
             toast.success("Login successful")
+            setdisable(false)
         }
         else
         {
             console.log("enter the valid details")
             toast.error("Please enter valid credentials!")
+            setdisable(false)
         }
         setcredentials({email:"",password:""})
     }
@@ -63,7 +67,7 @@ function Login(props) {
                             onChange={onchangehandler} />
                     </label>
                     <div className='flex flex-row gap-16 items-center my-3 mx-3'>
-                        <button className='py-2 px-3 bg-pink-500 rounded-md text-white font-semibold'>Submit</button>
+                        <button className='py-2 px-3 bg-pink-500 rounded-md text-white font-semibold'>{disable?"Loading...":"Login"}</button>
                         <p>Not registered?<Link to="/signup" className='text-blue-400 underline'>Signup</Link></p>
                     </div>
                 </form>

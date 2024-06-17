@@ -7,6 +7,7 @@ function Signup(props) {
   let context = useContext(NoteContext);
   const {settoken } = context;
   const [signupcredentials, setsignupcredentials] = useState({sname:"", semail: "", spassword: "",cpassword:"" })
+  const [disable, setdisable] = useState(false)
 
   const navigate=useNavigate()
 
@@ -65,7 +66,7 @@ function Signup(props) {
             <input type="password" placeholder="Enter the password" className="input input-bordered w-full max-w-xs" name="spassword" value={signupcredentials.spassword} onChange={onchangehandler} />
           </label>
           <div className='flex flex-row gap-11 items-center m-3'>
-            <button className='py-2 px-3 bg-pink-500 rounded-md text-white font-semibold'  >Submit</button>
+            <button className='py-2 px-3 bg-pink-500 rounded-md text-white font-semibold'  >{disable?"Loading...":"Signup"}</button>
             <p>Already registered?<Link to="/login" className='text-blue-400 underline'>login</Link></p>
           </div>
         </form>
